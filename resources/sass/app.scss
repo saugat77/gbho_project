@@ -1,0 +1,56 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "~node-snackbar/dist/snackbar.css";
+
+@import "../css/custom.scss";
+@import "fonts";
+@import "product_filter";
+@import "hamburger_menu";
+
+@media (min-width: 1200px) {
+    .container {
+        // max-width: 1150px;
+    }
+}
+
+#catalog-menu {
+    height: 400px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    .body {
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: #e53e3e;
+            border-radius: 10px;
+        }
+        &:hover::-webkit-scrollbar {
+            width: 5px;
+        }
+    }
+}
+
+#mobile-footer {
+    z-index: 30;
+    ul li {
+        a {
+            text-align: center;
+            .icon {
+                display: block;
+                text-align: center;
+                svg {
+                    height: 1em;
+                    width: 1em;
+                    margin: 0 auto;
+                }
+            }
+            .title {
+                font-size: 11px;
+            }
+        }
+    }
+}

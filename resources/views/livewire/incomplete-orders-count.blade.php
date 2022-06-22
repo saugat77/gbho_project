@@ -1,0 +1,1 @@
+<span class="right badge badge-primary z-depth-0" wire:poll.3000ms>{{ $count }}</span>

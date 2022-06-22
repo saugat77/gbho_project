@@ -1,0 +1,273 @@
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: normal;
+}
+
+/* Overwrite table cell font weight from MDB */
+.table td {
+    font-weight: 400;
+    vertical-align: middle;
+}
+
+  
+/*==========
+* Dropzone 
+===========*/
+
+.dropzone {
+    border: 3px dotted #ccc;
+}
+
+#productImages {
+    background-color: #f5f5f5;
+    margin: 15px auto;
+    padding: 10px;
+}
+
+#productImages .img-wrap {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px 10px 0;
+    background-color: #fff;
+}
+
+#productImages .img-wrap img {
+    overflow: hidden;
+    width: auto;
+    width: auto;
+    height: 150px;
+    border: 2px solid #eee;
+}
+
+#productImages .img-wrap .del-btn-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#productImages .img-wrap:hover .del-btn-wrapper {
+    display: flex;
+}
+
+#productImages .img-wrap .del-image-btn {
+    align-self: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+}
+
+#productImages .img-wrap:hover .del-image-btn .icon {
+    height: 50px;
+    width: 50px;
+    color: #fff;
+    font-size: 80px;
+}
+
+#no-image {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+}
+
+#no-image .image-icon {
+    font-size: 72px;
+    color: #a5a5a5;
+}
+
+#no-image .text {
+    font-style: italic;
+}
+
+
+/*================
+* Toggle Switch
+================*/
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 3.2rem;
+    height: 1.5rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 2.5rem;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 0.8rem;
+    width: 0.8rem;
+    left: 0.4rem;
+    bottom: 0.4rem;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 2.5rem;
+}
+
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* SVG icon */
+.svg-icon {
+    display: inline-flex;
+    align-self: center;
+}
+
+.svg-icon svg {
+    height: 1em;
+    width: 1em;
+    fill: currentColor;
+}
+
+.svg-icon.svg-baseline svg {
+    top: 0.125em;
+    position: relative;
+}
+
+label.required::after {
+    content: " *";
+    color: #ff3648;
+}
+
+
+/* Summernote  */
+.note-editor.card {
+    box-shadow: none;
+}
+
+/* Sortable */
+.sortable-placeholder {
+    border: 2px dashed #4285f4;
+    height: 35px;
+}
+
+.sort-handle:hover {
+    cursor: pointer;
+}
+
+/* Fix badge overwritten by MDB */
+.badge-light {
+    color: #1f2d3d !important;
+    background-color: #f8f9fa !important;
+    box-shadow: none;
+}
+
+/* Order Status Badge */
+.order-status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    min-width: 10ch;
+    font-size: .8rem;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.order-status-badge.pending {
+    background: #662fcb;
+    color: #fff;
+}
+.order-status-badge.processing {
+    background: #2fc6cb;
+    color: #fff;
+}
+.order-status-badge.shipped {
+    background: #ac2fcb;
+    color: #fff;
+}
+
+.order-status-badge.completed {
+    background: #28a745;
+    color: #fff;
+}
+
+.order-status-badge.cancelled
+ {
+    background: #dc3545;
+    color: #fff;
+}
+.order-status-badge.refunded
+{
+    background: #dc3575;
+    color: #fff;
+}
+
+/* Payment status badge */
+.payment-status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    min-width: 10ch;
+    font-size: .8rem;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.payment-status-badge.pending {
+    background: #662fcb;
+    color: #fff;
+}
+
+.payment-status-badge.paid {
+    background: #28a745;
+    color: #fff;
+}
+
+.payment-status-badge.refunded {
+    background: #dc3545;
+    color: #fff;
+}
+
+/* Coupon Status Badge */
+.coupon-status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    min-width: 10ch;
+    font-size: .8rem;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.coupon-status-badge.valid {
+    background: #28a745;
+    color: #fff;
+}
+
+.coupon-status-badge.expired {
+    background: #dc3545;
+    color: #fff;
+}
