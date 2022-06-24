@@ -9,6 +9,12 @@
         <span class="block sm:inline">{{ session()->get('unknown') }}</span>
     </div>
     @endif
+     @if(Session::has('message'))
+    <div class="bg-red-100 border border-red-400 text-red-700 text-sm p-2 rounded mb-4" role="alert">
+        <span class="block sm:inline">{{ session()->get('message') }}</span>
+    </div>
+    @endif
+
 
     {{-- Name --}}
     <div class="mb-6">
@@ -18,9 +24,9 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                 </svg>
             </span>
-            <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="userid" value="{{ old('userid') }}" placeholder="Your new user id">
+            <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="userid" value="{{ old('userid') }}" placeholder="Your new user id" wire:model="userid">
         </div>
-        @if($errors->register->has('name'))
+        @if($errors->register->has('userid'))
         <p class="text-red-500 text-xs mt-2">
             {{ $errors->register->first('userid') }}
         </p>
@@ -62,6 +68,11 @@
         </span>
         <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="firstname" placeholder="Your first name">
     </div>
+    @if($errors->register->has('firstname'))
+    <p class="text-red-500 text-xs mt-2">
+        {{ $errors->register->first('firstname') }}
+    </p>
+    @endif
 </div>
     {{-- last name --}}
     <div class="mb-6">
@@ -73,6 +84,11 @@
             </span>
             <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="lastname" placeholder="Your last name">
         </div>
+        @if($errors->register->has('lastname'))
+        <p class="text-red-500 text-xs mt-2">
+            {{ $errors->register->first('lastname') }}
+        </p>
+        @endif
     </div>
      {{-- dob --}}
      <div class="mb-6">
@@ -84,6 +100,11 @@
             </span>
             <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="date" name="dob" placeholder="datepicker">
         </div>
+        @if($errors->register->has('dob'))
+        <p class="text-red-500 text-xs mt-2">
+            {{ $errors->register->first('dob') }}
+        </p>
+        @endif
     </div>
      {{-- address --}}
      <div class="mb-6">
@@ -95,6 +116,11 @@
             </span>
             <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="parent_address" placeholder="Your address">
         </div>
+        @if($errors->register->has('parent_address'))
+        <p class="text-red-500 text-xs mt-2">
+            {{ $errors->register->first('address') }}
+        </p>
+        @endif
     </div>
      {{-- appartment name --}}
      <div class="mb-6">
@@ -106,6 +132,11 @@
             </span>
             <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="parent_apt" placeholder="Your apartment name">
         </div>
+        @if($errors->register->has('parent_apt'))
+        <p class="text-red-500 text-xs mt-2">
+            {{ $errors->register->first('parent_apt') }}
+        </p>
+        @endif
     </div> {{-- city --}}
     <div class="mb-6">
         <div class="flex items-center space-x-2 p-2 border-2 rounded border-purple-700">
@@ -116,6 +147,11 @@
             </span>
             <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="parent_city" placeholder="City name">
         </div>
+        @if($errors->register->has('parent_city'))
+        <p class="text-red-500 text-xs mt-2">
+            {{ $errors->register->first('parent_city') }}
+        </p>
+        @endif
     </div>
      {{-- state --}}
      <div class="mb-6">
@@ -127,6 +163,11 @@
             </span>
             <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="parent_state" placeholder="State">
         </div>
+        @if($errors->register->has('parent_state'))
+        <p class="text-red-500 text-xs mt-2">
+            {{ $errors->register->first('parent_state') }}
+        </p>
+        @endif
     </div>
      {{-- country --}}
      <div class="mb-6">
@@ -403,6 +444,11 @@
                 </span>
                 <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="parent_zip" placeholder="Zip">
             </div>
+            @if($errors->register->has('parent_zip'))
+            <p class="text-red-500 text-xs mt-2">
+                {{ $errors->register->first('parent_zip') }}
+            </p>
+            @endif
         </div>
             {{-- phone --}}
      <div class="mb-6">
@@ -414,6 +460,11 @@
             </span>
             <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="phone" placeholder="Your Contact number">
         </div>
+        @if($errors->register->has('phone'))
+        <p class="text-red-500 text-xs mt-2">
+            {{ $errors->register->first('phone') }}
+        </p>
+        @endif
     </div>
 
 
@@ -427,6 +478,11 @@
             </span>
             <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="email" value="{{ old('email') }}" placeholder="your@email.com">
         </div>
+        @if($errors->register->has('email'))
+        <p class="text-red-500 text-xs mt-2">
+            {{ $errors->register->first('email') }}
+        </p>
+        @endif
     </div>
 {{-- checkbox if the user is married or not --}}
     <div class="col-12">

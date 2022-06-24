@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateAddUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('add_users', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status')->nullable()->default(1);
             $table->string('userid')->unique();
             $table->string('password')->nullable();
             $table->string('firstname')->nullable();
@@ -40,14 +39,6 @@ class CreateUsersTable extends Migration
             $table->string('child_country')->nullable();
             $table->string('child_zip')->nullable();
             $table->enum('payment_status',['payment_pending','payment_done'])->default('Payment_pending');
-            $table->string('provider')->nullable();
-            $table->string('provider_id')->nullable();
-            $table->string('avatar')->nullable();
-            // $table->string('address')->nullable();
-            $table->string('gender')->nullable();
-            // $table->string('role')->nullable()->default('customer');
-            $table->integer('spam_count')->nullable()->default(0);
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -59,6 +50,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('add_users');
     }
 }

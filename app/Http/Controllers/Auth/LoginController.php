@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
+use App\AddUser;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -104,7 +106,7 @@ class LoginController extends Controller
             DB::beginTransaction();
             try {
                 $user = User::create([
-                    'name'          => $socialUser->getName(),
+                    'userid'          => $socialUser->getName(),
                     'email'         => $socialUser->getEmail(),
                     'email_verified_at' => now(),
                     'avatar'         => $socialUser->getAvatar(),
@@ -134,4 +136,18 @@ class LoginController extends Controller
             $this->username() => [trans('auth.failed')],
         ])->redirectTo('/login');
     }
+    // public function newlogin(Request $req){
+    //     $data = AddUser::where('userid','=','$req->userid')->get();
+    //     if(!$data){
+    //         return redirect()->back()->with('message','username  doestnt match');
+    //     }else{
+    //         if(Hash::check($req->password,$data->password)){
+    //             $req->session()->put('LoggedUser',$data->userid);
+    //            return view('user.account.index');
+    //         }
+    //         else{
+    //             return redirect()->back()->with('message','incorrect password');
+    //         }
+    //     }
+    // }
 }
