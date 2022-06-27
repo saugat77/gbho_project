@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\AddUser;
-use App\MAil\RegisterMail;
 use Omnipay\Omnipay;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -15,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Mail;
+
 
 
 class RegisterController extends Controller
@@ -81,59 +82,72 @@ class RegisterController extends Controller
      * @return \App\User
      */
     public function create(Request $request)
-    {
+    { try {
         $response = $this->gateway->purchase(
             array(
                 'amount' => '100',   //$order->total_price,
                 'currency' => settings('paypal_currency', 'USD'),
-                'returnUrl' => route('paypal.success', [$request->userid]),
-                'cancelUrl' => route('paypal.cancelled', [$request->userid]),
+                'returnUrl' => route('success'),
+                'cancelUrl' => route('paypal.cancelled'),
                 
-                // "items" => array(
-                //     [
-                //         'name' => 'Item Name',
-                //         'price' => '10',
-                //         'quantity' => 1,
-                //     ]
-                // )
+              
             )
         )->send();
-        $response->getData()['id'];
-        $data = new User();
-        $data->userid = $request->userid;
-        $data->password = bcrypt($request->password);
-        $data->firstname = $request->firstname;
-        $data->lastname = $request->lastname;
-        $data->dob = $request->dob;
-        $data->parent_address = $request->parent_address;
-        $data->parent_apt = $request->parent_apt;
-        $data->parent_city = $request->parent_city;
-        $data->parent_state = $request->parent_state;
-        $data->parent_country = $request->parent_country;
-        $data->parent_zip = $request->parent_zip;
-        $data->phone = $request->phone;
-        $data->email = $request->email;
-        $data->spouse_first_name = $request->spouse_first_name;
-        $data->spouse_last_name = $request->spouse_last_name;
-        $data->child_first_name = $request->child_first_name;
-        $data->child_last_name = $request->child_last_name;
-        $data->child_age = $request->child_age;
-        $data->child_address = $request->child_address;
-        $data->child_city = $request->child_city;
-        $data->child_state = $request->child_state;
-        $data->child_country = $request->child_country;
-        $data->child_zip = $request->child_zip;
-         $data->payment_status = "payment_pending";
-        $data->save();
-            if ($response->isRedirect()) {
+       
+        // $details=[
+        //             'title' =>'Mail from fest nepal',
+        //             'body' => 'testing'
+        //         ];
+        // Mail::to('saugatpandey4@gmail.com')->send(new TestMail($user));
+        //     if ($response->isRedirect()) {
+        //         $response->redirect();
+        //     } else {
+        //         return $response->getMessage();
+            
+// }
+       
            
-                $response->redirect();
-            } else {
-                return $response->getMessage();
-            }
-                
-   
-}
+               
+                    if ($response->isRedirect()) {
+                      
+                        $data = new User;
+                        $data->userid = $request->userid;
+                        $data->password = bcrypt($request->password);
+                        $data->firstname = $request->firstname;
+                        $data->lastname = $request->lastname;
+                        $data->dob = $request->dob;
+                        $data->parent_address = $request->parent_address;
+                        $data->parent_apt = $request->parent_apt;
+                        $data->parent_city = $request->parent_city;
+                        $data->parent_state = $request->parent_state;
+                        $data->parent_country = $request->parent_country;
+                        $data->parent_zip = $request->parent_zip;
+                        $data->phone = $request->phone;
+                        $data->email = $request->email;
+                        $data->spouse_first_name = $request->spouse_first_name;
+                        $data->spouse_last_name = $request->spouse_last_name;
+                        $data->child_first_name = $request->child_first_name;
+                        $data->child_last_name = $request->child_last_name;
+                        $data->child_age = $request->child_age;
+                        $data->child_address = $request->child_address;
+                        $data->child_city = $request->child_city;
+                        $data->child_state = $request->child_state;
+                        $data->child_country = $request->child_country;
+                        $data->child_zip = $request->child_zip;
+                        $data->save();
+                                $response->redirect();
+                            } else {
+                                return $response->getMessage();
+                            }
+        } catch (\throwable $ex) {
+            DB::rollBack();
+            logger('Error While adding new user.');
+            report($ex);
+            return $ex->getMessage();
+        }
+
+ }
+
 public function success(Request $request)
     {
         
@@ -146,12 +160,19 @@ public function success(Request $request)
             // ]);
             $transaction = $this->gateway->completePurchase([
                 'payer_id' => $request->PayerID,
-            ]);
-              
-            
+            ]);         
             if ($response->isSuccessful()) {
-                   $this->sendEmail($details);
-                return redirect()->route('login')->with('message', 'Payment success for order #' . $user->id . '.');
+                $data = User::where('id','desc')->first()->update([       
+                    $data->payment_status = 'payment_done',
+                 
+                    ]); 
+                    if($data == true){
+                        return redirect()->route('register')->with('message', 'Payment success for order #' . $data->id . '.');
+                    }
+                    else{
+                        return error;
+                    }
+               
                
             }
 
@@ -161,14 +182,7 @@ public function success(Request $request)
             return redirect()->back()->with('error', 'Something went wrong while processing your payment.');
         }
     }
-    public function sendEmail($details){
-        $details=[
-            'title' =>'Mail from fest nepal',
-            'body' => 'testing'
-        ];
-        Mail::to('saugatpandey4@gmail.com')->send(new RegisterMail($details));
-        return 'Email sent';
-    }
+
     // Method overwritten from RegistersUsers
     public function register(Request $request)
     {
@@ -234,4 +248,30 @@ public function success(Request $request)
 
 //         return Redirect()->back()->with('message','added');
 //     }
+public function sendEmail()
+{
+    /** 
+     * Store a receiver email address to a variable.
+     */
+    $reveiverEmailAddress = "np03a190240@heraldcollege.edu.np";
+
+    /**
+     * Import the Mail class at the top of this page,
+     * and call the to() method for passing the 
+     * receiver email address.
+     * 
+     * Also, call the send() method to incloude the
+     * HelloEmail class that contains the email template.
+     */
+    Mail::to($reveiverEmailAddress)->send(new TestEmail());
+
+    /**
+     * Check if the email has been sent successfully, or not.
+     * Return the appropriate message.
+     */
+    if (Mail::failures() != 0) {
+        return "Email has been sent successfully.";
+    }
+    return "Oops! There was some error sending the email.";
+}
 }

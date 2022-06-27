@@ -28,6 +28,6 @@ class TestEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Test Email')->markdown('email.test');
+        return $this->from(env('MAIL_FROM'))->subject('Test Email')->markdown('email.test');
     }
 }

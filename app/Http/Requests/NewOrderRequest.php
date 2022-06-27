@@ -63,7 +63,7 @@ class NewOrderRequest extends FormRequest
         }
         
         $order->address()->create($this->billing);
-
+        dd($order);
         return $order;
     }
 }
