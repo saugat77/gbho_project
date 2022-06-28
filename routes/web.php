@@ -55,8 +55,8 @@ Route::get('orders', 'OrderController@index')->name('frontend.orders.index');
 Route::post('orders', 'OrderController@store')->name('frontend.orders.store');
 // //for new login and register
 //  Route::post('/',[LoginController::class,'credentials'])->name('login');
-Route::post('register',[RegisterController::class,'create'])->name('register.pay');
-Route::get('success',[RegisterController::class,'success'])->name('success');
+Route::post('register',[RegisterController::class,'create'])->name('register');
+Route::get('success',[RegisterController::class,'registerSuccess'])->name('register.success');
 Route::get('mail',[RegisterController::class,'sendEmail'])->name('mail');
 Route::get('cancel',[RegisterController::class,'cancelled'])->name('register.cancel');
 

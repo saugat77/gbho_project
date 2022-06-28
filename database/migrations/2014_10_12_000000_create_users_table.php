@@ -47,6 +47,7 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             // $table->string('role')->nullable()->default('customer');
             $table->integer('spam_count')->nullable()->default(0);
+            $table->string( 'paypal_transaction_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

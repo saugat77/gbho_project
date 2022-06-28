@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TestEmail;
-
+Use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
-use App\AddUser;
+use App\PaypalPayment;
 use Omnipay\Omnipay;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -32,9 +32,7 @@ class RegisterController extends Controller
     |
     */
         private $gateway;
-     
 
-        
 
     use RegistersUsers;
 
@@ -82,105 +80,112 @@ class RegisterController extends Controller
      * @return \App\User
      */
     public function create(Request $request)
-    { try {
+    { 
+        try {
         $response = $this->gateway->purchase(
             array(
                 'amount' => '100',   //$order->total_price,
-                'currency' => settings('paypal_currency', 'USD'),
-                'returnUrl' => route('success'),
-                'cancelUrl' => route('paypal.cancelled'),
+                'currency' => env('PAYPAL_CURRENCY'),
+                'returnUrl' => route('register.success'),
+                'cancelUrl' => route('register.cancel'),
                 
               
             )
         )->send();
-       
-        // $details=[
-        //             'title' =>'Mail from fest nepal',
-        //             'body' => 'testing'
-        //         ];
-        // Mail::to('saugatpandey4@gmail.com')->send(new TestMail($user));
-        //     if ($response->isRedirect()) {
-        //         $response->redirect();
-        //     } else {
-        //         return $response->getMessage();
-            
-// }
-       
-           
-               
-                    if ($response->isRedirect()) {
-                      
-                        $data = new User;
-                        $data->userid = $request->userid;
-                        $data->password = bcrypt($request->password);
-                        $data->firstname = $request->firstname;
-                        $data->lastname = $request->lastname;
-                        $data->dob = $request->dob;
-                        $data->parent_address = $request->parent_address;
-                        $data->parent_apt = $request->parent_apt;
-                        $data->parent_city = $request->parent_city;
-                        $data->parent_state = $request->parent_state;
-                        $data->parent_country = $request->parent_country;
-                        $data->parent_zip = $request->parent_zip;
-                        $data->phone = $request->phone;
-                        $data->email = $request->email;
-                        $data->spouse_first_name = $request->spouse_first_name;
-                        $data->spouse_last_name = $request->spouse_last_name;
-                        $data->child_first_name = $request->child_first_name;
-                        $data->child_last_name = $request->child_last_name;
-                        $data->child_age = $request->child_age;
-                        $data->child_address = $request->child_address;
-                        $data->child_city = $request->child_city;
-                        $data->child_state = $request->child_state;
-                        $data->child_country = $request->child_country;
-                        $data->child_zip = $request->child_zip;
-                        $data->save();
-                                $response->redirect();
-                            } else {
-                                return $response->getMessage();
-                            }
-        } catch (\throwable $ex) {
+        
+        $data = new User();
+        $data->userid = $user_id  = $request->userid;
+        $data->password = bcrypt($request->password);
+        $data->firstname = $request->firstname;
+        $data->lastname = $request->lastname;
+        $data->dob = $request->dob;
+        $data->parent_address = $request->parent_address;
+        $data->parent_apt = $request->parent_apt;
+        $data->parent_city = $request->parent_city;
+        $data->parent_state = $request->parent_state;
+        $data->parent_country = $request->parent_country;
+        $data->parent_zip = $request->parent_zip;
+        $data->phone = $request->phone;
+        $data->email = $request->email;
+        $data->spouse_first_name = $request->spouse_first_name;
+        $data->spouse_last_name = $request->spouse_last_name;
+        $data->child_first_name = $request->child_first_name;
+        $data->child_last_name = $request->child_last_name;
+        $data->child_age = $request->child_age;
+        $data->child_address = $request->child_address;
+        $data->child_city = $request->child_city;
+        $data->child_state = $request->child_state;
+        $data->child_country = $request->child_country;
+        $data->child_zip = $request->child_zip;
+        $data->payment_status = "payment_done";
+        $data->save();
+        
+ if ($response->isRedirect()) {
+      $response->redirect();
+       } else {
+           return $response->getmessage() ;  
+    }
+ } catch (\throwable $ex) {
             DB::rollBack();
             logger('Error While adding new user.');
             report($ex);
             return $ex->getMessage();
         }
+     return $user_id;
 
  }
 
-public function success(Request $request)
+public function registerSuccess(Request $request)
     {
         
-        try {
+      
             // $request->validate([
             //     'order_id' => 'required|exists:orders,id',
             //     'paymentId' => 'required',
             //     'token' => 'required',
             //     'PayerID' => 'required'
             // ]);
-            $transaction = $this->gateway->completePurchase([
-                'payer_id' => $request->PayerID,
-            ]);         
-            if ($response->isSuccessful()) {
-                $data = User::where('id','desc')->first()->update([       
-                    $data->payment_status = 'payment_done',
-                 
-                    ]); 
-                    if($data == true){
-                        return redirect()->route('register')->with('message', 'Payment success for order #' . $data->id . '.');
-                    }
-                    else{
-                        return error;
-                    }
-               
-               
+            if($request->input('paymentId') && $request->input('PayerID')){
+                $transaction = $this->gateway->completePurchase(array(
+                    'payer_id'            => $request->input('PayerID'),
+                    'transactionReference' => $request->input('paymentId')
+                ));     
+                $response = $transaction->send();  
+                if ($response->isSuccessful()) {
+                    $arr_body = $response->getData();
+    
+                    $payment = new PaypalPayment;
+                    $payment->payment_id = $arr_body['id'];
+                    $payment->payer_id = $arr_body['payer']['payer_info']['payer_id'];
+                    $payment->payer_email = $arr_body['payer']['payer_info']['email'];
+                    $payment->amount = $arr_body['transactions'][0]['amount']['total'];
+                    $payment->currency = env('PAYPAL_CURRENCY');
+                    $payment->payment_status = $arr_body['state'];
+                   
+                    $payment->save();
+                    
+                    // $user= User::where('id','desc')->first();
+                    // dd($user);
+                    // $user->update([
+                    //      "payment_status" => "payment_done",
+                    //      'created_at'=> Carbon::now(),
+                       
+                       
+                    // ]);
+                
+                        
+                    
+    
+                    return redirect('login')->with('message','successfully registered '.$payment->payer_email);
+                }
+    else{
+        return error;
+    }
             }
-
-            throw new Exception('Something went wrong while processing your payment.');
-        } catch (\Throwable $th) {
-            report($th);
-            return redirect()->back()->with('error', 'Something went wrong while processing your payment.');
-        }
+             
+          
+      
+        
     }
 
     // Method overwritten from RegistersUsers
@@ -218,36 +223,12 @@ public function success(Request $request)
                 ->withInput();
         }
     }
-//     public function newuser(Request $request){
-//         $data = new AddUser;
-//         $data->userid = $request->userid;
-//         $data->password = bcrypt($request->password);
-//         $data->firstname = $request->firstname;
-//         $data->lastname = $request->lastname;
-//         $data->dob = $request->dob;
-//         $data->parent_address = $request->parent_address;
-//         $data->parent_apt = $request->parent_apt;
-//         $data->parent_city = $request->parent_city;
-//         $data->parent_state = $request->parent_state;
-//         $data->parent_country = $request->parent_country;
-//         $data->parent_zip = $request->parent_zip;
-//         $data->phone = $request->phone;
-//         $data->email = $request->email;
-//         $data->spouse_first_name = $request->spouse_first_name;
-//         $data->spouse_last_name = $request->spouse_last_name;
-//         $data->child_first_name = $request->child_first_name;
-//         $data->child_last_name = $request->child_last_name;
-//         $data->child_age = $request->child_age;
-//         $data->child_address = $request->child_address;
-//         $data->child_city = $request->child_city;
-//         $data->child_state = $request->child_state;
-//         $data->child_country = $request->child_country;
-//         $data->child_zip = $request->child_zip;
-//         $data->payment_status = "payment_pending";
-//         $data->save();
+    
+    public function cancelled()
+    {
+        return redirect()->route('register')->with('error', 'Sorry the payment has been cancelled.');
+    }
 
-//         return Redirect()->back()->with('message','added');
-//     }
 public function sendEmail()
 {
     /** 
