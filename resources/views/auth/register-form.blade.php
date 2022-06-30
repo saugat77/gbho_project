@@ -24,13 +24,17 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                 </svg>
             </span>
-            <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="userid" value="{{ old('userid') }}" placeholder="Your new User id">
+            <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="text" name="userid" value="{{ old('userid') }}" placeholder="Your New User id">
+            @error('userid')
+            <p class="text-danger">{{$errors}}</p>
+        @enderror
         </div>
-        @if($errors->register->has('userid'))
+       
+        {{-- @if($errors->register->has('userid'))
         <p class="text-red-500 text-xs mt-2">
             {{ $errors->register->first('userid') }}
         </p>
-        @endif
+        @endif --}}
     </div>
 {{-- Password --}}
 <div class="mb-6">

@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use App\Service\RegisterService;
+use App\Http\Requests\newRegisterRequest;
+
+
 
 
 class RegisterController extends Controller
@@ -32,6 +36,7 @@ class RegisterController extends Controller
     |
     */
         private $gateway;
+        private $registerService;
 
 
     use RegistersUsers;
@@ -57,16 +62,16 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    // /**
-    //  * Get a validator for an incoming registration request.
-    //  *
-    //  * @param  array  $data
-    //  * @return \Illuminate\Contracts\Validation\Validator
-    //  */
+    /**
+     * Get a validator for an incoming registration request.
+     *
+      * @param  array  $data
+      * @return \Illuminate\Contracts\Validation\Validator
+      */
     // protected function validator(array $data)
     // {
     //     return Validator::make($data, [
-    //        'userid' => ['required', 'string', 'max:255'],
+    //     //    'userid' => ['required', 'string', 'max:255'],
     //         // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
     //         // 'password' => ['required', 'string'],
     //         //'g-recaptcha-response' => settings('register_enable_recaptcha') == 'yes' ? 'recaptcha' : 'nullable',
@@ -79,59 +84,36 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    public function create(Request $request)
+
+    // for making validation
+
+
+    public function create(RegisterService $register,Request $request,User $user)
     { 
-        try {
-        $response = $this->gateway->purchase(
+        try {     
+            $data=$register->createUser($request);
+          
+           // dd($data->id);
+               $response = $this->gateway->purchase(
             array(
                 'amount' => '100',   //$order->total_price,
                 'currency' => env('PAYPAL_CURRENCY'),
-                'returnUrl' => route('register.success'),
-                'cancelUrl' => route('register.cancel'),
-                
-              
+                'returnUrl' => route('register.success',[$data->id]),
+                'cancelUrl' => route('register.cancel',[$data->id]),
             )
         )->send();
-        
-        $data = new User();
-        $data->userid = $user_id  = $request->userid;
-        $data->password = bcrypt($request->password);
-        $data->firstname = $request->firstname;
-        $data->lastname = $request->lastname;
-        $data->dob = $request->dob;
-        $data->parent_address = $request->parent_address;
-        $data->parent_apt = $request->parent_apt;
-        $data->parent_city = $request->parent_city;
-        $data->parent_state = $request->parent_state;
-        $data->parent_country = $request->parent_country;
-        $data->parent_zip = $request->parent_zip;
-        $data->phone = $request->phone;
-        $data->email = $request->email;
-        $data->spouse_first_name = $request->spouse_first_name;
-        $data->spouse_last_name = $request->spouse_last_name;
-        $data->child_first_name = $request->child_first_name;
-        $data->child_last_name = $request->child_last_name;
-        $data->child_age = $request->child_age;
-        $data->child_address = $request->child_address;
-        $data->child_city = $request->child_city;
-        $data->child_state = $request->child_state;
-        $data->child_country = $request->child_country;
-        $data->child_zip = $request->child_zip;
-        $data->payment_status = "payment_done";
-        $data->save();
-        
- if ($response->isRedirect()) {
-      $response->redirect();
+        if ($response->isRedirect()) {
+        $response->redirect();
        } else {
            return $response->getmessage() ;  
-    }
- } catch (\throwable $ex) {
+        }
+        } catch (\throwable $ex) {
             DB::rollBack();
             logger('Error While adding new user.');
             report($ex);
             return $ex->getMessage();
         }
-     return $user_id;
+     
 
  }
 
@@ -145,41 +127,26 @@ public function registerSuccess(Request $request)
             //     'token' => 'required',
             //     'PayerID' => 'required'
             // ]);
+            $user= User::findOrFail($request->id);
             if($request->input('paymentId') && $request->input('PayerID')){
                 $transaction = $this->gateway->completePurchase(array(
                     'payer_id'            => $request->input('PayerID'),
-                    'transactionReference' => $request->input('paymentId')
+                    'transactionReference' => $request->input('paymentId'),
+                    
+                    'register_id'          => $request->id
                 ));     
                 $response = $transaction->send();  
+             
+
+                // dd($response,$request->id);
                 if ($response->isSuccessful()) {
-                    $arr_body = $response->getData();
-    
-                    $payment = new PaypalPayment;
-                    $payment->payment_id = $arr_body['id'];
-                    $payment->payer_id = $arr_body['payer']['payer_info']['payer_id'];
-                    $payment->payer_email = $arr_body['payer']['payer_info']['email'];
-                    $payment->amount = $arr_body['transactions'][0]['amount']['total'];
-                    $payment->currency = env('PAYPAL_CURRENCY');
-                    $payment->payment_status = $arr_body['state'];
-                   
-                    $payment->save();
-                    
-                    // $user= User::where('id','desc')->first();
-                    // dd($user);
-                    // $user->update([
-                    //      "payment_status" => "payment_done",
-                    //      'created_at'=> Carbon::now(),
-                       
-                       
-                    // ]);
-                
-                        
-                    
-    
-                    return redirect('login')->with('message','successfully registered '.$payment->payer_email);
+                    $user['paypal_transaction_id'] = $request->payerId;
+                   $user["payment_status"]='payment_done';
+                    $user->save();        
+                    return redirect('login')->with('message','successfully registered '.$user->userid);
                 }
     else{
-        return error;
+        return "error";
     }
             }
              
@@ -256,3 +223,27 @@ public function sendEmail()
     return "Oops! There was some error sending the email.";
 }
 }
+  // $data->userid  => $request->userid,
+                // $data->password = bcrypt($request->password),
+                // $data->firstname = $request->firstname;
+                // $data->lastname = $request->lastname;
+                // $data->dob = $request->dob;
+                // $data->parent_address = $request->parent_address;
+                // $data->parent_apt = $request->parent_apt;
+                // $data->parent_city = $request->parent_city;
+                // $data->parent_state = $request->parent_state;
+                // $data->parent_country = $request->parent_country;
+                // $data->parent_zip = $request->parent_zip;
+                // $data->phone = $request->phone;
+                // $data->email = $request->email;
+                // $data->spouse_first_name = $request->spouse_first_name;
+                // $data->spouse_last_name = $request->spouse_last_name;
+                // $data->child_first_name = $request->child_first_name;
+                // $data->child_last_name = $request->child_last_name;
+                // $data->child_age = $request->child_age;
+                // $data->child_address = $request->child_address;
+                // $data->child_city = $request->child_city;
+                // $data->child_state = $request->child_state;
+                // $data->child_country = $request->child_country;
+                // $data->child_zip = $request->child_zip;
+                

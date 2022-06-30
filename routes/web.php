@@ -6,6 +6,7 @@ use app\Models\User;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MailController;
+use App\Service\RegisterService;
 
 Route::get('/', 'FrontendController@index')->name('home');
 
@@ -54,11 +55,10 @@ Route::get('dicount-card', 'DiscountCardController@index')->name('frontend.disco
 Route::get('orders', 'OrderController@index')->name('frontend.orders.index');
 Route::post('orders', 'OrderController@store')->name('frontend.orders.store');
 // //for new login and register
-//  Route::post('/',[LoginController::class,'credentials'])->name('login');
 Route::post('register',[RegisterController::class,'create'])->name('register');
-Route::get('success',[RegisterController::class,'registerSuccess'])->name('register.success');
+Route::get('success/{id}',[RegisterController::class,'registerSuccess'])->name('register.success');
 Route::get('mail',[RegisterController::class,'sendEmail'])->name('mail');
-Route::get('cancel',[RegisterController::class,'cancelled'])->name('register.cancel');
+Route::get('cancel/{id}',[RegisterController::class,'cancelled'])->name('register.cancel');
 
 Route::get('my-reviews', 'MyReviewController')->name('frontend.my-reviews')->middleware('auth');
 
