@@ -15,7 +15,6 @@
         display: flex;
     }
 
-    .nav-menu .nav-item {}
 
     .nav-menu .nav-item .nav-link {
         display: inline-block;

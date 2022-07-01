@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\SomeoneLoginAttempt;
+use App\Listeners\SendLoginAttempt;
 use App\Listeners\SendWelcomeNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -20,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
             SendWelcomeNotification::class,
         ],
+        SomeoneLoginAttempt::class=>[
+            SendLoginAttempt::class 
+        ]
     ];
 
     /**

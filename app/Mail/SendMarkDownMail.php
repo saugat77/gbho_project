@@ -8,21 +8,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeEmail extends Mailable implements ShouldQueue
+class SendMarkDownMail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $user;
+    // public User $user;
+    public $maxAttempt;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    
-    public function __construct(User $user)
+    public function __construct($maxAttempt)
     {
-        $this->user = $user;
+        $this->maxAttempt = $maxAttempt;
     }
 
     /**
@@ -32,6 +31,6 @@ class WelcomeEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('email.welcome');
+        return $this->markdown('emails.markdown',['maxAttempt'=>$this->maxAttempt]);
     }
 }

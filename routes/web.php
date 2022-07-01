@@ -1,8 +1,19 @@
 <?php
 
+use App\Events\SomeoneLoginAttempt;
+use App\Http\Controllers\LoginAlertController;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentRegisterController;
+use App\Mail\LoginAlert;
+use App\Mail\WelcomeEmail;
+use App\Mail\WelcomeMail;
+use App\Notifications\LoginAlertNotification;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMarkDownMail;
+
 
 Route::get('/', 'FrontendController@index')->name('home');
 
@@ -74,3 +85,21 @@ Route::get('cart-destroy', function () {
 Route::get('paypal-pay/{order}', 'PaymentController@pay')->name('paypal.pay');
 Route::get('paypal-success', 'PaymentController@success')->name('paypal.success');
 Route::get('paypal-cancelled', 'PaymentController@cancelled')->name('paypal.cancelled');
+
+// Route::get('/notification',function(){
+//     $user=User::inRandomOrder()->first();
+//     $user->notify(new LoginALertNotification());
+// });
+
+Route::get('/notification',function(){
+    $user=User::inRandomOrder()->first();
+    // event(new SomeoneLoginAttempt($user));
+    SomeoneLoginAttempt::dispatch($user);
+    echo $user->name;
+    // dispatch(function(){
+        Mail::to("manindratamang4@gmail.com")
+            ->send(new SendMarkDownMail());
+    // })->delay(now()->addSecond(10));
+    echo "mail sent";
+
+});

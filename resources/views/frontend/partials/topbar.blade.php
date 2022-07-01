@@ -46,19 +46,22 @@
                     @endif
                     @endguest
 
+                    
                     <li>
                         <a class="hover:underline" href="/wishlists">My Wishlist</a>
                     </li>
                     <li>
                         <a class="hover:underline" href="/cart">My Cart</a>
                     </li>
-
+                    
                     @auth
                     <li>
                         <div class="inline-block relative" x-data="{ open: false }">
+                            
                             <button type="button" @click="open = true" class="inline-flex items-center space-x-1">
                                 <span><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg></span>
-                                <span> {{ auth()->user()->name}}</span>
+                                <span>Hello !!  {{ auth()->user()->name}}</span>
+                                
                                 <span>
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                 </span>
@@ -76,6 +79,7 @@
                                 <a class="py-2 px-3 block hover:bg-main-400 hover:text-white rounded" href="{{ route('frontend.orders.index') }}">My orders</a>
                                 <a class="py-2 px-3 block hover:bg-main-400 hover:text-white rounded" href="{{ route('frontend.my-reviews') }}">My Reviews</a>
                                 <a class="py-2 px-3 block hover:bg-main-400 hover:text-white rounded" href="{{ route('frontend.wishlists.index') }}">Wishlist</a>
+                                <a class="py-2 px-3 block hover:bg-main-400 hover:text-white rounded" href="{{ route('frontend.wishlists.index') }}">Renew Subscription</a>
                                 <div class="border-b border-gray-300 -mx-2 my-2"></div>
                                 <a class="py-2 px-3 block hover:bg-main-400 hover:text-white rounded" href="#" type="button" onclick="event.preventDefault(); document.getElementById('nav-logout-form').submit();">Logout</a>
                                 <form id="nav-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
