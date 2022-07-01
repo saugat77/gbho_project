@@ -7,13 +7,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ContactUsMail extends Mailable implements ShouldQueue
+class RegisterMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $name;
+    public $email;
 
-    public function __construct($name)
+    public function __construct($email)
     {
        
         $this->email = $email;

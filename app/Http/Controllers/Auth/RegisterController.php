@@ -148,7 +148,7 @@ public function registerSuccess(Request $request)
                     // ];
 
                     
-                    \Mail::to($user->email)->send(new \App\Mail\TestEmail());   
+                    \Mail::to($user->email)->send(new \App\Mail\RegisterMail($user->email));   
                     return redirect('login')->with('message','successfully registered '.$user->email);
                 }
     else{
