@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-@if(settings('show_top_bar', 'yes') == 'yes')
-=======
 @if(settings
 ('show_top_bar', 'yes') == 'yes')
 
@@ -18,7 +15,6 @@
         transition: 0.5s;
     }
 </style>
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
 <header class="hidden md:block border-b z-20" style="color: #444444; font-family: 'Open Sans', sans-serif;">
     <div class="container mx-auto text-sm font-sans py-2">
         <div class="flex justify-between">

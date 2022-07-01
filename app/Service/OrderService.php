@@ -15,11 +15,7 @@ class OrderService
         $products = [];
         foreach (Cart::content() as $item) {
             $product = [
-<<<<<<< HEAD
-                'userid' => $item->name,
-=======
                 'name' => $item->name,
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
                 'order_id' => $order->id,
                 'product_id' => $item->id,
                 'quantity' => $item->qty,

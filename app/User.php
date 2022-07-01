@@ -13,11 +13,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use HasRoles;
-<<<<<<< HEAD
-   
-=======
-    use SoftDeletes;
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
+   use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -25,15 +21,11 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-<<<<<<< HEAD
        'userid' ,'firstname','lastname','dob','parent_address','parent_apt','parent_city','parent_state',
        'parent_country','parent_zip','phone','email','spouse_first_name','spouse_last_name', 'child_first_name','child_last_name','child_age',
        'child_address','child_city','child_state','child_country','child_zip',
         'password', 'provider', 'provider_id', 'avatar', 'mobile', 'address',
         'gender', 'role'
-=======
-        'name', 'email', 'password', 'provider', 'provider_id', 'avatar', 'mobile', 'address', 'gender', 'role'
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
     ];
 
     /**

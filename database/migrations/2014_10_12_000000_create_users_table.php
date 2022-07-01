@@ -17,11 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-<<<<<<< HEAD
             $table->timestamp('email_verified_at')->nullable();
-=======
-             $table->timestamp('email_verified_at')->nullable();
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
             $table->boolean('status')->nullable()->default(1);
             $table->string('password')->nullable();
             $table->string('provider')->nullable();
@@ -32,10 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             // $table->string('role')->nullable()->default('customer');
             $table->integer('spam_count')->nullable()->default(0);
-<<<<<<< HEAD
             $table->string( 'paypal_transaction_id')->nullable();
-=======
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
