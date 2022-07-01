@@ -12,6 +12,10 @@
         height: 400px;
     } */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
 </style>
 @endpush
 

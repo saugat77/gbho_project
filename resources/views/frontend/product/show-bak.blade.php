@@ -74,7 +74,11 @@
                             <div class="flex items-center space-x-2">
                                 @if($product->hasDiscount())
                                 <h3 class="text-lg font-normal text-gray-700 line-through">{{ priceUnit() }}
+<<<<<<< HEAD
                                     {{ number_format($product->regular_price) }}</h3>
+=======
+                                    aa{{ number_format($product->regular_price) }}</h3>
+>>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
                                 @endif
                                 <h1 class="text-2xl font-semibold text-theme-red">
                                     {{ priceUnit() }}

@@ -6,7 +6,11 @@ use App\Http\Requests\NewOrderRequest;
 use App\Service\OrderService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Log;
+=======
+
+>>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
 class OrderController extends Controller
 {
     protected $orderService;
@@ -30,11 +34,16 @@ class OrderController extends Controller
             DB::beginTransaction();
             $order = $request->persistOrder();
             $this->orderService->saveOrderItems($order);
+<<<<<<< HEAD
           
             DB::commit();
 
             Cart::destroy();
        
+=======
+            DB::commit();
+            Cart::destroy();
+>>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
         } catch (\throwable $ex) {
             DB::rollBack();
             logger('Error While persisting order.');
@@ -57,7 +66,10 @@ class OrderController extends Controller
             $this->orderService->storeAddress($order, $request->billing);
             DB::commit();
             Cart::destroy();
+<<<<<<< HEAD
             
+=======
+>>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
         } catch (\Throwable $th) {
             DB::rollBack();
             logger('Error While placing order.');
@@ -66,10 +78,14 @@ class OrderController extends Controller
         }
 
         if ($order->payment_method == 'paypal') {
+<<<<<<< HEAD
         //    return  $order->id ;
 
             print_r('Showing the user profile for user: '.$order);
         //  return redirect()->route('paypal.pay', $order);
+=======
+            return redirect()->route('paypal.pay', $order);
+>>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
         }
 
         return redirect()->route('frontend.orders.index')->with('success', 'Your order has been placed and is being processed');

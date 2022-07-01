@@ -53,7 +53,11 @@
                             <svg class="h-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
+<<<<<<< HEAD
                             <span>Categories</span>
+=======
+                            
+>>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
                         </span>
                     </span>
                     <div class="category-level-one-wrapper dropdown-menu absolute hidden pt-1 shadow" style="z-index: 999">
@@ -62,6 +66,7 @@
                 </div>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
                 <a class="nav-link" href="{{ route('frontend.products.index') }}">Shop</a>
             </li>
             <li class="nav-item">
@@ -69,6 +74,15 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('frontend.contact-form.index') }}">Contact</a>
+=======
+                <a class="nav-link" href="{{ route('frontend.products.index') }}">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('frontend.pages.show', 'about-us') }}">Event</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('frontend.contact-form.index') }}">Contact Us</a>
+>>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
             </li>
         </ul>
 

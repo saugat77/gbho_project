@@ -100264,8 +100264,13 @@ h6 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
+<<<<<<< HEAD
   .lg\:grid-cols-6{
     grid-template-columns: repeat(6, minmax(0, 1fr));
+=======
+  .lg\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+>>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
   }
 
   .lg\:grid-cols-7{
