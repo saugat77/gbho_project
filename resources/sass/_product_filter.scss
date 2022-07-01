@@ -1,0 +1,33 @@
+#product-filter {
+    font-family: "Roboto", sans-serif;
+
+    .filter-section {
+        margin-bottom: 15px;
+    }
+
+    .filter-title {
+        line-height: 1.8;
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #212121;
+        text-transform: uppercase;
+    }
+
+    .related-categories-list li {
+        a {
+            color: #757575;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        a:hover {
+            color: #dd6b20;
+        }
+    }
+
+    .price-filter {
+        input {
+            border: 1px solid #ddd;
+        }
+    }
+}

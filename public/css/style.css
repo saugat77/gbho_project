@@ -1,0 +1,107 @@
+[x-cloak] {
+    display: none;
+}
+
+/**
+* Login & Register Page 
+*
+**/
+.auth-bg-pattern {
+    background-color: #ff7700;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23cc0000' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23aa0000' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23d6002b' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%23b10022' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23d9004b' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%23b2003d' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23d3006c' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%23ac0057' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23c4008c' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%239e0071' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%23aa00aa' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%23880088' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+input:-internal-autofill-selected {
+    box-shadow: 000px 1000px #fff inset;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
+
+.product-card {
+}
+.card-img-top {
+    padding-bottom: 10px;
+}
+.card-body {
+    padding-top: 30px;
+}
+.text-center {
+    padding-top: 5px;
+}
+
+.card-title {
+    color: #1b2430;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.btn {
+    background-color: red;
+    border-radius: 3px;
+    padding: 5px 15px;
+    color: #fff;
+    font-weight: 500;
+}
+.btn:hover {
+    background-color: #1b2430;
+    transition: 0.4s linear;
+    color: #eee;
+}
+section {
+    height: 400px;
+}
+
+section .container:hover {
+    box-shadow: 2px 5px 10px #888888;
+    transition: 0.1s linear;
+    cursor: pointer;
+}
+.container .py-5 {
+    background-color: #adc2a9;
+    height: 400px;
+}
+.py-5 {
+    margin-top: 0rem;
+    margin-bottom: 5rem;
+    border-radius: 5px;
+}
+
+.bg-gray-100 .container {
+    margin-top: 5px;
+}
+.mb-4 {
+    margin-bottom: 0rem;
+}
+.py-5 {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+}
+
+
+
+.clock {
+    font-family: sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+    color: #1b2430;
+    text-align: center;
+    padding-top: 6%;
+}
+.place h1 {
+    font-size: 30px;
+    text-align: center;
+    color: #1b2430;
+}
+
+
+.calendar{
+    padding-left: 23%;
+    padding-top: 3%;
+}
+
+.converter{
+    
+    padding-left: 25%;
+    padding-top: 20%;
+}
