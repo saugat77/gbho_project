@@ -2,6 +2,10 @@
     <h1 class="text-3xl font-bold text-gray-800 leading-8">Welcome Back</h1>
     <div class="text-gray-500 text-sm">Login to continue</div>
 </div>
+<!-- @error('failed')
+{{$message}}
+
+@enderror -->
 <form method="POST" action="{{ route('login') }}" class="text-gray-700">
     @csrf
 

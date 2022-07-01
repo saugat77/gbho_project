@@ -8,10 +8,10 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.1|^7.3|^8.1.6",
         "artesaos/seotools": "^0.20.1",
         "barryvdh/laravel-dompdf": "^0.8.7",
-        "biscolab/laravel-recaptcha": "^4.4",
+        "biscolab/laravel-recaptcha": "^4.4.0",
         "bumbummen99/shoppingcart": "^4.0",
         "consoletvs/charts": "7.*",
         "diglactic/laravel-breadcrumbs": "^6.0",
@@ -35,7 +35,11 @@
         "spatie/laravel-permission": "^3.17",
         "spatie/laravel-sluggable": "^2.0",
         "sqits/laravel-userstamps": "^0.0.8",
-        "srmklive/paypal": "~3.0"
+        "srmklive/paypal": "~3.0",
+        "symfony/google-mailer": "^6.1",
+        "symfony/http-client": "^6.1",
+        "symfony/mailer": "^6.1",
+        "symfony/mailgun-mailer": "^6.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

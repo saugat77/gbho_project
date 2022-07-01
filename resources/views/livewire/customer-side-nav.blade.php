@@ -91,5 +91,12 @@
             </form>
         </a>
     </li>
+    <li>
+        <a href="Renew">
+            
+            <span>Renew Subscription</span>
+            
+        </a>
+    </li>
 </ul>
 </div>

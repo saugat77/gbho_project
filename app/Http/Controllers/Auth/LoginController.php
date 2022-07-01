@@ -7,11 +7,15 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
+use App\AddUser;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+
 
 class LoginController extends Controller
 {
@@ -132,6 +136,26 @@ class LoginController extends Controller
     {
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
-        ])->redirectTo('/login');
-    }
+          
+            ])->redirectTo('/login');
+        }
+    //     if (Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
+    //         $request->session()->regenerateToken();
+    //         return redirect("/dashboard");
+        
+    //     }
+    //     return back()->withErrors(['failed'=>"invalid username and psw"]);
+    // }
+        
+
+
+        // $attempts = session()->get('login.attempts', 0); // get attempts, default: 0
+        // session()->put('login.attempts', $attempts + 1); // increase attempts
+    
+    // }
+    // protected function authenticated(Request $request, $user)
+    // {
+    //     session()->forget('login.attempts'); // clear attempts
+    // }
 }
+
