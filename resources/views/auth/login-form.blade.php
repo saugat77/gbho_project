@@ -10,9 +10,14 @@
         <span class="block sm:inline">{{ session()->get('unknown') }}</span>
     </div>
     @endif
+    @if(Session::has('message'))
+    <div class="bg-green-100 border border-green-400 text-green-700 text-sm p-2 rounded mb-4 success alert-success" role="success">
+        <span class="block sm:inline">{{ session()->get('message') }}</span>
+    </div>
+    @endif
     
     <div class="mb-6">
-        <div class="flex items-center space-x-2 p-2 border-2 rounded {{ $errors->login->has('email') ? 'border-red-500' :'border-purple-700' }}">
+        <div class="flex items-center space-x-2 p-2 border-2 rounded {{ $errors->login->has('email') ? 'border-red-500' :'border-purple-700' }}" style="margin-bottom: 10px">
             <span class="text-purple-600">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -22,7 +27,7 @@
         </div>
         @if($errors->login->has('email'))
         <p class="text-red-500 text-xs mt-2">
-            {{ $errors->login->first('email') }}
+            {{ $errors->login->first('userid') }}
         </p>
         @endif
         @error('email')

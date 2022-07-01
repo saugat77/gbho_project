@@ -82,3 +82,14 @@ Route::get('cart-destroy', function () {
 Route::get('paypal-pay/{order}', 'PaymentController@pay')->name('paypal.pay');
 Route::get('paypal-success', 'PaymentController@success')->name('paypal.success');
 Route::get('paypal-cancelled', 'PaymentController@cancelled')->name('paypal.cancelled');
+
+
+//mail
+// Route::get('send-mail', function () {
+   
+   
+   
+  
+   
+//     dd("Email is Sent.");
+// });

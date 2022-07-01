@@ -17,11 +17,8 @@ input:-internal-autofill-selected {
     box-shadow: 000px 1000px #fff inset;
     -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
-<<<<<<< HEAD
-=======
 
-.product-card {
-}
+
 .card-img-top {
     padding-bottom: 10px;
 }
@@ -107,4 +104,3 @@ section .container:hover {
     padding-left: 25%;
     padding-top: 20%;
 }
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66

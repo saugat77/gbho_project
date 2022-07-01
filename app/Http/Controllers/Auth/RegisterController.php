@@ -55,6 +55,10 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        $this->gateway = Omnipay::create('PayPal_Rest');
+        $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
+        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
+        $this->gateway->setTestMode(true);
         $this->middleware('guest');
     }
 
@@ -84,18 +88,18 @@ class RegisterController extends Controller
     // for making validation
 
 
-    public function create(RegisterService $register,Request $request,User $user)
+    public function create(RegisterService $register,Request $request)
     { 
         try {     
             $data=$register->createUser($request);
           
-           // dd($data->id);
+           
                $response = $this->gateway->purchase(
             array(
-                'amount' => '100',   //$order->total_price,
+                'amount' => $request->registerAmount,   //$order->total_price,
                 'currency' => env('PAYPAL_CURRENCY'),
-                'returnUrl' => route('register.success',[$data->id]),
-                'cancelUrl' => route('register.cancel',[$data->id]),
+                'returnUrl' => route('register.success',[$data]),
+                'cancelUrl' => route('register.cancel',[$data]),
             )
         )->send();
         if ($response->isRedirect()) {
@@ -138,8 +142,14 @@ public function registerSuccess(Request $request)
                 if ($response->isSuccessful()) {
                     $user['paypal_transaction_id'] = $request->payerId;
                    $user["payment_status"]='payment_done';
-                    $user->save();        
-                    return redirect('login')->with('message','successfully registered '.$user->userid);
+                    $user->save(); 
+                    // $mail=[
+                    //    til $request->payerId => '',
+                    // ];
+
+                    
+                    \Mail::to($user->email)->send(new \App\Mail\TestEmail());   
+                    return redirect('login')->with('message','successfully registered '.$user->email);
                 }
     else{
         return "error";

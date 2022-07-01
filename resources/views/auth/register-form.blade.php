@@ -9,11 +9,7 @@
         <span class="block sm:inline">{{ session()->get('error') }}</span>
     </div>
     @endif
-     @if(Session::has('message'))
-    <div class="bg-green-100 border border-green-400 text-green-700 text-sm p-2 rounded mb-4 success alert-success" role="success">
-        <span class="block sm:inline">{{ session()->get('message') }}</span>
-    </div>
-    @endif
+    
 
 
     {{-- Name --}}
@@ -667,6 +663,9 @@
         </div>
   </div>
 </div>
+{{-- for price --}}
+<input type="hidden" name="registerAmount" value="3487">
+
     {{-- Password Confirmation --}}
     {{-- <div class="mb-6">
         <div class="flex items-center space-x-2 p-2 border-2 rounded {{ $errors->register->has('password_confirmation') ? 'border-red-500' :'border-purple-700' }}"">

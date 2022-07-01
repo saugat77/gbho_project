@@ -9,13 +9,12 @@ use Illuminate\Http\Request;
 
 
 class RegisterService{
-    private $id;
+    
  public function createUser($request)
     {
         
         try{
         $data =new User([
-            
             'userid'  => $request['userid'],
             'password' => bcrypt($request->password),
             'firstname' => $request->firstname,
@@ -43,10 +42,11 @@ class RegisterService{
             
         ]);
         $data->save();
-    //   /dd($data->id);
+        return $data->id;
+       
       
-      return $data;
-     //  dd($this->id);
+    // return $data;
+     
     }
 
     catch (\throwable $ex) {
