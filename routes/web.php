@@ -2,6 +2,12 @@
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Route;
+use app\Models\User;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\MailController;
+use App\Service\RegisterService;
+
 
 Route::get('/', 'FrontendController@index')->name('home');
 
@@ -49,6 +55,10 @@ Route::get('dicount-card', 'DiscountCardController@index')->name('frontend.disco
 // Orders route
 Route::get('orders', 'OrderController@index')->name('frontend.orders.index');
 Route::post('orders', 'OrderController@store')->name('frontend.orders.store');
+// //for new login and register
+Route::post('register',[RegisterController::class,'create'])->name('register');
+Route::get('success/{id}',[RegisterController::class,'registerSuccess'])->name('register.success');
+Route::get('cancel/{id}',[RegisterController::class,'cancelled'])->name('register.cancel');
 
 Route::get('my-reviews', 'MyReviewController')->name('frontend.my-reviews')->middleware('auth');
 
