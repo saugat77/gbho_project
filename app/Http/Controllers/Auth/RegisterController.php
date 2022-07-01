@@ -87,16 +87,16 @@ class RegisterController extends Controller
 
     // for making validation
 
-
     public function create(RegisterService $register,Request $request)
     { 
+        // $amount= DB::table('settings')->where('name','register_amount')->pluck('val');
         try {     
             $data=$register->createUser($request);
-          
            
+            //   dd($this->amount);
                $response = $this->gateway->purchase(
             array(
-                'amount' => $request->registerAmount,   //$order->total_price,
+                "amount" => $request->registerAmount,   //$order->total_price,
                 'currency' => env('PAYPAL_CURRENCY'),
                 'returnUrl' => route('register.success',[$data]),
                 'cancelUrl' => route('register.cancel',[$data]),

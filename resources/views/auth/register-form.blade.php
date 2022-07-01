@@ -664,7 +664,7 @@
   </div>
 </div>
 {{-- for price --}}
-<input type="hidden" name="registerAmount" value="3487">
+<input type="hidden" name="registerAmount" value="100">
 
     {{-- Password Confirmation --}}
     {{-- <div class="mb-6">
