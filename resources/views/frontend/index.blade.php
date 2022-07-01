@@ -1,54 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-<<<<<<< HEAD
-<div style="background-color: #f5f5f5;">
-=======
 <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
     />
 
 <div >
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
     <div class="block">
         <x-primary-image-slider />
     </div>
 
     <div class="my-5"></div>
-<<<<<<< HEAD
-
-    <div class="container py-">
-        <section class="mb-4">
-            <div class="flex items-center mb-4 sm:mb-6">
-                <h2 class="tracking-wide text-lg">Top Products</h2>
-                {{-- <h2 class="tracking-wide bg-main-40 bg-gradient-to-r from-main-500 rounded-sm via-blue-500 to-main-400 py-2 px-4 lg:px-8 text-white">Top Products</h2> --}}
-                <a class="ml-auto text-sm text-red-600 font-semibold hover:underline" href="{{ route('frontend.products.by-group', 'top') }}">View All</a>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">
-                @foreach ($topProducts as $product)
-                <x-product-card :product="$product" />
-                @endforeach
-            </div>
-        </section>
-    </div>
-=======
     
    
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
 
     <div class="container py-5">
         <section class="mb-4">
             <div class="flex items-center mb-4 sm:mb-6">
-<<<<<<< HEAD
-                <h2 class="tracking-wide text-lg">New Arrivals</h2>
-                <a class="ml-auto text-sm text-red-600 font-semibold hover:underline" href="{{ route('frontend.products.index') }}">View All</a>
-            </div>
-            <div class="bg-white  p-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4">
-                @foreach ($latestProducts as $product)
-                <x-product-card :product="$product" />
-                @endforeach
-=======
                 <h2 class="tracking-wide text-lg"></h2>
                 {{-- <h2 class="tracking-wide bg-main-40 bg-gradient-to-r from-main-500 rounded-sm via-blue-500 to-main-400 py-2 px-4 lg:px-8 text-white"></h2> --}}
                 <a class="ml-auto text-sm text-red-600 font-semibold hover:underline" href="{{ route('frontend.products.by-group', 'top') }}"></a>
@@ -116,14 +85,11 @@
                     </div>
                 </div>
                 </section>
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
             </div>
         </section>
     </div>
 
 
-<<<<<<< HEAD
-=======
 
 
     <div class="container py-5">
@@ -385,7 +351,6 @@ setInterval(function(){
 }, 500)
   </script>
 
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
     <div class="bg-gray-100">
         <div class="container py-5 md:py-8 ">
             <div class="text-center mb-4 sm:mb-6">
@@ -424,8 +389,6 @@ setInterval(function(){
     </div>
 
 </div>
-<<<<<<< HEAD
-=======
 
 <script src="script.js"></script>
     <script>
@@ -512,5 +475,4 @@ document.querySelector(".next").addEventListener("click", () => {
 
 renderCalendar();
     </script>
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
 @endsection

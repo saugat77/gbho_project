@@ -17,9 +17,6 @@
                         <div class="flex-shrink-0">
                             {{-- <a class="text-xl md:text-2xl font-semibold tracking-wide font-roboto" href="/"><span class="">Makalu</span> <span class=" text-primary">Dairy</span></a> --}}
                             <a class="text-xl md:text-2xl font-semibold tracking-wide font-roboto" href="/">
-<<<<<<< HEAD
-                                <img src="/images/logo.png" alt="">
-=======
                                 <img src="/images/GBHO-logo.png" alt="">
                                 <style>
                                     img{
@@ -27,7 +24,6 @@
                                         height: 100px;
                                     }
                                 </style>
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
                             </a>
                         </div>
                     </div>

@@ -69,11 +69,8 @@
                         <a class="hover:underline" href="/cart">My Cart</a>
                     </li>
 
-<<<<<<< HEAD
-=======
                     <button class="donate-btn"> Donate Us</button>
 
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
                     @auth
                     <li>
                         <div class="inline-block relative" x-data="{ open: false }">
