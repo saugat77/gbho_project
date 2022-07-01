@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MailController;
 use App\Service\RegisterService;
+use App\Http\Controllers\Backend\Setting\EmailSettingController;
 
 Route::get('/', 'FrontendController@index')->name('home');
 
@@ -84,3 +85,5 @@ Route::get('paypal-success', 'PaymentController@success')->name('paypal.success'
 Route::get('paypal-cancelled', 'PaymentController@cancelled')->name('paypal.cancelled');
 
 //to send mail
+
+Route::get('/mail',[EmailSettingController::class,'sendTestEmail']);
