@@ -35,7 +35,7 @@ class EmailSettingController extends Controller
             'email' => 'required'
         ]);
 
-        Mail::to($request->email)->send(new TestEmail());
+        Mail::to('manindratamang5@gmail.com')->send(new TestEmail());
 
         session()->flash('defaultAlert', 'Test email sent');
         return redirect()->back()->with('success', 'Test email sent');

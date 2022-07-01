@@ -97,8 +97,8 @@ Route::get('/notification',function(){
     SomeoneLoginAttempt::dispatch($user);
     echo $user->name;
     // dispatch(function(){
-        Mail::to("manindratamang4@gmail.com")
-            ->send(new SendMarkDownMail());
+        // Mail::to("manindratamang4@gmail.com")
+        //     ->send(new SendMarkDownMail());
     // })->delay(now()->addSecond(10));
     echo "mail sent";
 
