@@ -1,8 +1,12 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://releases.jquery.com/git/ui/jquery-ui-git.css">
 <div class="mb-3">
     <h1 class="text-3xl font-bold text-gray-800 leading-8">Register Account</h1>
 </div>
 <form class="w-full text-gray-700" method="POST" action="{{ route('register') }}">
     @csrf
+
 
     @if(Session::has('error'))
     <div class="bg-red-100 border border-red-400 text-red-700 text-sm p-2 rounded mb-4" role="alert">
@@ -93,19 +97,49 @@
      {{-- dob --}}
      <div class="mb-6">
         <div class="flex items-center space-x-2 p-2 border-2 rounded border-purple-700">
-            <span class="text-purple-600">
+            <span class="text-purple-600"  for="date-picker-example">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                 </svg>
             </span>
-            <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="date" name="dob" placeholder="datepicker">
+            <input class="w-full p-1 bg-transparent placeholder-purple-900 placeholder-opacity-75 text-sm font-medium autofill-transparent" type="date" id="dob" name="dob" onclick = "ageCalculator()" placeholder="date-picker">
+           
         </div>
+        <span id = "datePickerMessage"> </span>
         @if($errors->register->has('dob'))
         <p class="text-red-500 text-xs mt-2">
             {{ $errors->register->first('dob') }}
         </p>
         @endif
-    </div>
+    </div>  
+   <script>  
+  
+  function ageCalculator() {
+    var userinput = document.getElementById("dob").value;
+    var dob = new Date(userinput);
+    if(userinput==null || userinput=='') {
+      document.getElementById("datePickerMessage").innerHTML = "**Choose a date please!";  
+      return false; 
+    } else {
+    
+    //calculate month difference from current date in time
+    var month_diff = Date.now() - dob.getTime();
+    
+    //convert the calculated difference in date format
+    var age_dt = new Date(month_diff); 
+    
+    //extract year from date    
+    var year = age_dt.getUTCFullYear();
+    
+    //now calculate the age of the user
+    var age = Math.abs(year - 1970);
+    
+    //display the calculated age
+    return document.getElementById("datePickerMessage").innerHTML =  
+           'Age is ' + age + " years.";
+    }
+}
+</script>
      {{-- address --}}
      <div class="mb-6">
         <div class="flex items-center space-x-2 p-2 border-2 rounded border-purple-700">

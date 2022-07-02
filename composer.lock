@@ -508,18 +508,6 @@
         },
         {
             "name": "consoletvs/charts",
-<<<<<<< HEAD
-            "version": "7.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ConsoleTVs/Charts.git",
-                "reference": "cc820595e9bec13fbaf4cf552128860830a0f9e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ConsoleTVs/Charts/zipball/cc820595e9bec13fbaf4cf552128860830a0f9e2",
-                "reference": "cc820595e9bec13fbaf4cf552128860830a0f9e2",
-=======
             "version": "7.3.0",
             "source": {
                 "type": "git",
@@ -530,22 +518,14 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Chartisan/Charts/zipball/b6c47dedeebf95c690f3604355ddb002677b6ae6",
                 "reference": "b6c47dedeebf95c690f3604355ddb002677b6ae6",
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
                 "shasum": ""
             },
             "require": {
                 "chartisan/php": "^1.2.0",
-<<<<<<< HEAD
-                "illuminate/console": "^7.14.1|^8.0",
-                "illuminate/contracts": "^7.14.1|^8.0",
-                "illuminate/http": "^7.14.1|^8.0",
-                "illuminate/support": "^7.14.1|^8.0",
-=======
                 "illuminate/console": "^7.14.1|^8.0|^9.0",
                 "illuminate/contracts": "^7.14.1|^8.0|^9.0",
                 "illuminate/http": "^7.14.1|^8.0|^9.0",
                 "illuminate/support": "^7.14.1|^8.0|^9.0",
->>>>>>> 7f3aedc92570ca4d6173e4fd25fa4d3e1c0edc66
                 "php": ">=7.4"
             },
             "type": "library",
